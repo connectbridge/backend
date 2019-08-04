@@ -1,6 +1,8 @@
 package com.bridge.api.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +42,15 @@ public class MainController {
 			@RequestParam(value="name", required=false) String name,
 			@RequestParam(value="nickName", required=false) String nickName,
 			@RequestParam(value="birthDate", required=false) String birthDate) throws Exception {
-		return memberService.getAll();
+
+		Map<String, Object> selectParam = new HashMap<String, Object>();
+		if (memberSeq != null) selectParam.put("memberSeq", memberSeq);
+		if (id != null) selectParam.put("id", id);
+		if (email != null) selectParam.put("email", email);
+		if (name != null) selectParam.put("name", name);
+		if (nickName != null) selectParam.put("nickName", nickName);
+		if (birthDate != null) selectParam.put("birthDate", birthDate);
+
+		return memberService.getMember(selectParam);
 	}
 }
