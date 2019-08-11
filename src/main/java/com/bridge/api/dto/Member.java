@@ -11,6 +11,7 @@ public class Member {
 	private String sBirthDate;
 	private Date dtJoinDate;
 	private String sPassword;
+	private int nSex;
 
 	public Long getnMemberSeq() {
 		return nMemberSeq;
@@ -59,5 +60,11 @@ public class Member {
 	}
 	public void setsPassword(String sPassword) {
 		this.sPassword = sPassword;
+	}
+	public int getnSex() {
+		return nSex;
+	}
+	public void setnSex(int nSex) {
+		this.nSex = nSex;
 	}
 }

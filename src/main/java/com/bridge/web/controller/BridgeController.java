@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BridgeController {
-	@RequestMapping("/{memberId}")
+	@RequestMapping("/p/{memberId}")
 	public String hello(@PathVariable("memberId") String memberId, ModelMap modelMap) {
 		modelMap.addAttribute("memberId", memberId);
 		return "main";

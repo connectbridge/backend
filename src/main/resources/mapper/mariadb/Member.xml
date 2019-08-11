@@ -4,8 +4,16 @@
 	<select id="getAll" resultType="com.bridge.api.dto.Member">
 		SELECT * FROM tMember
 	</select>
+
 	<select id="getMember" parameterType="map" resultType="com.bridge.api.dto.Member">
-		SELECT * FROM tMember
+		SELECT
+		<if test="isCount == true">
+			count(nMemberSeq) nMemberSeq
+		</if>
+		<if test="isCount == false">
+			nMemberSeq, sId, sName, sNickName, sEmail, sBirthDate, dtJoinDate, sPassword, nSex
+		</if>
+		FROM tMember
 		WHERE 1=1
 		<if test="memberSeq != null">
 			AND nMemberSeq = #{memberSeq}
@@ -26,4 +34,11 @@
 			AND sBirthDate = #{birthDate}
 		</if>
 	</select>
+
+	<insert id="insertMember" parameterType="map">
+		INSERT INTO tMember
+			(sId, sEmail, sName, sNickName, sBirthDate, dtJoinDate, sPassWord, nSex)
+		VALUES (#{id}, #{email}, #{name}, #{nickName}, #{birthDate}, now(), #{passWord}, #{sex})
+	</insert>
+
 </mapper>

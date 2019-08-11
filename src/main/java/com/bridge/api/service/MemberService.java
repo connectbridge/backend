@@ -21,4 +21,8 @@ public class MemberService {
 	public List<Member> getMember(Map<String, Object> param) throws Exception {
 		return memberMapper.getMember(param);
 	}
+
+	public List<Member> insertMember(Map<String, Object> param) throws Exception {
+		return memberMapper.insertMember(param);
+	}
 }
