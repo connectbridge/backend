@@ -60,18 +60,18 @@ public class bbridgeController {
 	@ApiImplicitParams({
 		@ApiImplicitParam(name = "id", value = "아이디", required = true, dataType = "String", paramType = "query"),
 		@ApiImplicitParam(name = "email", value = "이메일", required = true, dataType = "String", paramType = "query"),
+		@ApiImplicitParam(name = "passWord", value = "비밀번호", required = true, dataType = "String", paramType = "query"),
 		@ApiImplicitParam(name = "name", value = "이름", required = false, dataType = "String", paramType = "query"),
 		@ApiImplicitParam(name = "nickName", value = "닉네임", required = false, dataType = "String", paramType = "query"),
 		@ApiImplicitParam(name = "birthDate", value = "생년월일", required = false, dataType = "String", paramType = "query"),
-		@ApiImplicitParam(name = "passWord", value = "비밀번호", required = false, dataType = "String", paramType = "query"),
 		@ApiImplicitParam(name = "sex", value = "성별", required = false, dataType = "int", paramType = "query")})
-	public @ResponseBody List<Member> insertMember(
+	public @ResponseBody Long insertMember(
 			@RequestParam(value="id", required=true) String id,
 			@RequestParam(value="email", required=true) String email,
+			@RequestParam(value="passWord", required=false) String passWord,
 			@RequestParam(value="name", required=false) String name,
 			@RequestParam(value="nickName", required=false) String nickName,
 			@RequestParam(value="birthDate", required=false) String birthDate,
-			@RequestParam(value="passWord", required=false) String passWord,
 			@RequestParam(value="sex", required=false) int sex) throws Exception {
 
 		Map<String, Object> selectParam = new HashMap<String, Object>();

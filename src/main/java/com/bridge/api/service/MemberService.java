@@ -18,11 +18,15 @@ public class MemberService {
 		return memberMapper.getAll();
 	}
 
+	public Long getCountMember(Map<String, Object> param) throws Exception {
+		return memberMapper.getCountMember(param);
+	}
+
 	public List<Member> getMember(Map<String, Object> param) throws Exception {
 		return memberMapper.getMember(param);
 	}
 
-	public List<Member> insertMember(Map<String, Object> param) throws Exception {
+	public Long insertMember(Map<String, Object> param) throws Exception {
 		return memberMapper.insertMember(param);
 	}
 }
