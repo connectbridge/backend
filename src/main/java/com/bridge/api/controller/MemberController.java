@@ -1,14 +1,21 @@
 package com.bridge.api.controller;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
+import org.springframework.boot.web.servlet.error.ErrorAttributes;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.WebRequest;
 
 import com.bridge.api.dto.ResponseResult;
 import com.bridge.api.service.MemberService;
@@ -56,10 +63,10 @@ public class MemberController {
 
 		ResponseResult responseResult = new ResponseResult();
 		if (isCount == true) {
-			responseResult.setMessage("<select> member Count");
+			responseResult.setMessage("[select] member count");
 			responseResult.setResult(memberService.getCountMember(selectParam));
 		} else {
-			responseResult.setMessage("<select> member Data List");
+			responseResult.setMessage("[select] member list");
 			responseResult.setResult(memberService.getMember(selectParam));
 		}
 		return responseResult;
@@ -99,15 +106,29 @@ public class MemberController {
 		if (sex < 0) param.put("sex", sex);
 
 		ResponseResult responseResult = new ResponseResult();
-		responseResult.setMessage("<insert> member");
-		try {
-			responseResult.setResult(memberService.insertMember(param));
-		} catch (Exception e) {
-//			ServletWebRequest servletContainer = (ServletWebRequest)RequestContextHolder.getRequestAttributes();
-//			HttpServletResponse response = servletContainer.getResponse();
-//			System.out.println(response.getStatus());
-//			responseResult.setStatus(response.getStatus());
-		}
+		responseResult.setMessage("[insert] member");
+		responseResult.setResult(memberService.insertMember(param));
 		return responseResult;
+	}
+
+	// response error handling
+	@Bean
+	public ErrorAttributes errorAttributes() {
+		return new DefaultErrorAttributes() {
+			@Override
+			public Map<String, Object> getErrorAttributes(WebRequest webRequest, boolean includeStackTrace) {
+				Map<String, Object> originalResult = super.getErrorAttributes(webRequest, includeStackTrace);
+
+				Map<String, Object> customResult = new LinkedHashMap<String, Object>();
+				customResult.put("status", originalResult.get("status"));
+				customResult.put("desc", originalResult.get("error"));
+				customResult.put("message", originalResult.get("message"));
+				customResult.put("check", false);
+				customResult.put("date", new Date(System.currentTimeMillis()));
+				customResult.put("time", new Time(System.currentTimeMillis()));
+				customResult.put("result", null);
+				return customResult;
+			}
+		};
 	}
 }

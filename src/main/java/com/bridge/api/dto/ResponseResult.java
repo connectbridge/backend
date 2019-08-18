@@ -5,9 +5,12 @@ import java.sql.Time;
 
 import io.swagger.annotations.ApiModelProperty;
 
-public class ResponseResult {
+public class ResponseResult{
 	@ApiModelProperty(value="status")
 	private int status = 200;
+
+	@ApiModelProperty(value="desc")
+	private String desc = "OK";
 
 	@ApiModelProperty(value="message")
 	private String message;
@@ -24,6 +27,14 @@ public class ResponseResult {
 	@ApiModelProperty(value="result")
 	private Object result;
 
+	public ResponseResult() {}
+	public ResponseResult(int status, String message, boolean check) {
+		this.status = status;
+		this.message = message;
+		this.check = check;
+	}
+
+
 	public int getStatus() {
 		return status;
 	}
@@ -38,6 +49,14 @@ public class ResponseResult {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+
+	public String getDesc() {
+		return desc;
+	}
+
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 
 	public boolean isCheck() {
