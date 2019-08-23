@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>MAIN</h1>
-aaaaaaa
+<h1>Personal Page</h1>
+${memberId} 님 안녕하세요; <BR> 
+<c:set var="memberId2" value="${memberId}" />
+
 </body>
 </html>

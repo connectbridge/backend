@@ -49,16 +49,17 @@
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
 		</dependency>
-		
+
 		<!-- swagger 추가 후 오류때문에 아래 디펜던시 추가 -->
 		<!-- https://github.com/springfox/springfox/issues/2932 -->
-		<!-- Correct the classpath of your application so that it contains a single, compatible version of org.springframework.plugin.core.PluginRegistry -->
+		<!-- Correct the classpath of your application so that it contains a single, 
+			compatible version of org.springframework.plugin.core.PluginRegistry -->
 		<dependency>
 			<groupId>org.springframework.plugin</groupId>
 			<artifactId>spring-plugin-core</artifactId>
 			<version>1.2.0.RELEASE</version>
 		</dependency>
-		
+
 		<!-- srping webflux -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -124,6 +125,16 @@
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
 		</dependency>
 	</dependencies>
 
