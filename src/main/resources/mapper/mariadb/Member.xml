@@ -28,6 +28,9 @@
 		<if test="birthDate != null">
 			AND sBirthDate = #{birthDate}
 		</if>
+		<if test="password != null">
+			AND sPassword = #{password}
+		</if>
 	</select>
 	
 	<select id="getMember" parameterType="map" resultType="com.bridge.api.dto.Member">
@@ -52,6 +55,9 @@
 		</if>
 		<if test="birthDate != null">
 			AND sBirthDate = #{birthDate}
+		</if>
+		<if test="password != null">
+			AND sPassword = #{password}
 		</if>
 	</select>
 

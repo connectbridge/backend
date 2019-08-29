@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class BridgeController {
+	@RequestMapping("")
+	public String index() {
+		return "main";
+	}
+
 	@RequestMapping("/main")
 	public String main() {
 		return "main";
@@ -16,11 +21,6 @@ public class BridgeController {
 	public String personalPage(@PathVariable("memberId") String memberId, ModelMap modelMap) {
 		modelMap.addAttribute("memberId", memberId);
 		return "personalPage";
-	}
-
-	@RequestMapping("/loginForm")
-	public String loginForm() {
-		return "loginForm";
 	}
 
 	@RequestMapping("/join")

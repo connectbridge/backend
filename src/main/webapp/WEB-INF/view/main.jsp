@@ -10,6 +10,9 @@
 </head>
 <body>
 <h1>MAIN</h1>
-aaaaaaa
+<h2>
+	<a href="/auth/joinForm">JOIN</a><BR>
+	<a href="/auth/loginForm">LOGIN</a>
+</h2>
 </body>
 </html>
