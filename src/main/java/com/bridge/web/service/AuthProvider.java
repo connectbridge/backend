@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -27,7 +28,6 @@ public class AuthProvider implements AuthenticationProvider {
 		String id = authentication.getName();
 		String password = (String)authentication.getCredentials();
 
-		System.out.println(id + " " + password);
 		Map<String, Object> param = new HashMap<String, Object>();
 		param.put("id", id);
 		param.put("password", password);
@@ -40,27 +40,16 @@ public class AuthProvider implements AuthenticationProvider {
 			e.printStackTrace();
 		}
 
-		System.out.println(member.get(0).getsName());
-		System.out.println(member.get(0).getsNickName());
-//		// email에 맞는 user가 없거나 비밀번호가 맞지 않는 경우.
-//		if (null == user || !user.getPassword().equals(password)) {
-//			return null;
-//		}
+		// id,password 매칭되지 않는 경우
+		if (member.isEmpty()) {
+			throw new BadCredentialsException("아이디 또는 패스워드가 일치하지 않습니다.");
+		}
 
 		List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
 		grantedAuthorityList.add(new SimpleGrantedAuthority("ROLE_USER"));
-		// 로그인한 계정에게 권한 부여
-//		if (user.isIsadmin()) {
-//			grantedAuthorityList.add(new SimpleGrantedAuthority(Constant.ROLE_TYPE.ROLE_ADMIN.toString()));
-//		} else {
-//			grantedAuthorityList.add(new SimpleGrantedAuthority(Constant.ROLE_TYPE.ROLE_USER.toString()));
-//		}
-
-		//http://progtrend.blogspot.com/2018/07/spring-boot-security.html
-		//UsernamePasswordAuthenticationToken
 
 		// 로그인 성공시 로그인 사용자 정보 반환
-		return authentication;
+		return new UsernamePasswordAuthenticationToken(member.get(0), null, grantedAuthorityList);
 	}
 
 	@Override

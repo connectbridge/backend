@@ -12,13 +12,23 @@
 <title>Bridge Login</title>
 </head>
 <body>
-<c:out value="${_csrf.parameterName}"/>
 	<h1>LOGIN FORM</h1>
-	<form:form action="/auth/loginProcess" method="post">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-		<input type ="text" name="id">
-		<input type ="password" name="password">
-		<input type ="submit" name="로그인">
+	<form:form action="/auth/loginForm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}">
+		<input type="text" name="id">
+		<input type="password" name="password">
+		<input type="submit" name="로그인">
 	</form:form>
+
+	<c:if test="${not empty ERRORMSG}">
+		<font color="red">
+			<p>
+				Your login attempt was not successful due to <br /> ${ERRORMSG }
+			</p>
+		</font>
+	</c:if>
+
+
 </body>
 </html>

@@ -10,7 +10,10 @@
 </head>
 <body>
 <h1>Personal Page</h1>
-${memberId} 님 안녕하세요; <BR> 
+	<c:if test="${not empty loginId}">
+		${loginId} 님 안녕하세요; <BR>
+	</c:if>
+${memberId} 님 개인페이지 입니다; <BR> 
 <c:set var="memberId2" value="${memberId}" />
 
 </body>

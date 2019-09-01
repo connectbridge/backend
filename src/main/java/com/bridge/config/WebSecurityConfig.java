@@ -6,12 +6,19 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
+import com.bridge.handler.CustomAuthenticationFailureHandler;
+import com.bridge.handler.CustomLogoutSuccessHandler;
 import com.bridge.web.service.AuthProvider;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+	AuthenticationFailureHandler CustomAuthenticationFailureHandler = new CustomAuthenticationFailureHandler();
+	LogoutSuccessHandler CustomLogoutSuccessHandler = new CustomLogoutSuccessHandler();
 
 	@Autowired
 	AuthProvider authProvider;
@@ -29,8 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 									"/swagger-ui.html",
 									"/css/**",
 									"/script/**",
-									"/images/**",
-									"/");
+									"/images/**");
 	}
 
 	@Override
@@ -38,8 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests()
 					.antMatchers("/",
 								"/main",
-								"/auth/**",
-								"/resources/**").permitAll()
+								"/auth/joinForm**",
+								"/auth/loginForm**",
+								"/resources/**",
+								"/id/**",
+								"/").permitAll()
 					.antMatchers("/admin")
 						.hasRole("ADMIN")
 						.anyRequest()
@@ -47,13 +56,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 					.formLogin()
 					.loginPage("/auth/loginForm")
-					.loginProcessingUrl("/auth/loginProcess")
+					.loginProcessingUrl("/auth/loginForm")
+					.failureHandler(CustomAuthenticationFailureHandler)
 					.usernameParameter("id")
 					.passwordParameter("password")
 					.defaultSuccessUrl("/main")
 					.permitAll()
 				.and()
 					.logout()
+					.logoutUrl("/auth/logout")
+					.logoutSuccessHandler(CustomLogoutSuccessHandler)
 					.permitAll()
 				.and()
 					.authenticationProvider(authProvider);
