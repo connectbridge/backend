@@ -11,12 +11,10 @@
 <body>
 	<h1>MAIN</h1>
 	<h2>
-		<a href="/auth/joinForm">JOIN</a><BR> <a href="/auth/loginForm">LOGIN</a>
+		<a href="/auth/joinForm">JOIN</a><BR>
+		<a href="/auth/loginForm">LOGIN</a><BR>
+		<a href="/auth/logout">LOGOUT</a><BR>
+		<a href="/auth/modifyInfoForm">MODIFY</a><BR>
 	</h2>
-
-	<form action="/auth/logout" method="POST">
-		<input type="submit" value="Logout" /> <input type="hidden"
-			name="${_csrf.parameterName}" value="${_csrf.token}" />
-	</form>
 </body>
 </html>

@@ -46,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 								"/main",
 								"/auth/joinForm**",
 								"/auth/loginForm**",
+								"/auth/logout**",
 								"/resources/**",
 								"/id/**",
 								"/").permitAll()
